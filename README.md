@@ -1,6 +1,8 @@
 # Danganronpa-Mod-Loader
 A very basic but very simple mod loader for the PC ports of Danganronpa 1&amp;2
+
 Currently uses WAD file related code from [DRAT](https://github.com/Liquid-S/Danganronpa-Another-Tool)
+
 (To be changed)
 # Usage
 The configuration files and mod folders by default regardless of where you run this program will be located in My Documents/Danganronpa2
