@@ -8,9 +8,12 @@ namespace DanganronpaAnotherModLoader
 {
     public static class ModPacker
     {
-        public static string tempName = "dr2_data_keyboard_us";
-        public static void PackMods(string gameFolder, string modFolder, Config config )
+ 
+        public static void PackMods(string gameFolder, string modFolder, Config config, Game game = Game.Dr2 )
         {
+         
+            string gameStr = game == Game.Dr1 ? "dr1" : "dr2";
+            string tempName = gameStr + "_data_keyboard_us";
             if (!Directory.Exists(modFolder))
             {
                 Directory.CreateDirectory(modFolder);
@@ -52,19 +55,19 @@ namespace DanganronpaAnotherModLoader
             {
                 config.saveConfigValues();
             }
-            string backUpWadLocation = gameFolder + "\\dr2_data_keyboard_us_backup.wad";
-            string originalWadLocation = gameFolder + "\\dr2_data_keyboard_us.wad";
+            string backUpWadLocation = gameFolder + "\\" + gameStr + "_data_keyboard_us_backup.wad";
+            string originalWadLocation = gameFolder + "\\" + tempName;
             if (!File.Exists(backUpWadLocation))
             {
                 Console.ForegroundColor= ConsoleColor.Red;
-                Console.WriteLine("dr2_data_keyboard_us_backup.wad doesn't exist!\nCreating...\n");
+                Console.WriteLine(gameStr + "_data_keyboard_us_backup.wad doesn't exist!\nCreating...\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 File.Copy(originalWadLocation, backUpWadLocation, false);
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Created a dr2_data_keyboard_us_backup.wad!\n");
+                Console.WriteLine("Created a " + gameStr + "_data_keyboard_us_backup.wad!\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            Wad.ExtractWAD(backUpWadLocation, gameFolder + tempName);
+            Wad.ExtractWAD(backUpWadLocation, gameFolder + "\\"+ tempName);
             //Console.WriteLine(modList.Count);
             foreach (Mod mod in modList)
             {
@@ -74,7 +77,7 @@ namespace DanganronpaAnotherModLoader
                 {
 
                     string cleanDir = dir.Replace(mod.Path, string.Empty);
-                    string destDirPath = gameFolder + tempName + cleanDir;
+                    string destDirPath = gameFolder + "\\" + tempName + cleanDir;
                     if (!Directory.Exists(destDirPath))
                         Directory.CreateDirectory(destDirPath);
                 }
@@ -83,7 +86,7 @@ namespace DanganronpaAnotherModLoader
                     //Console.WriteLine(file);
                     string cleanFile = file.Replace(mod.Path, string.Empty);
                     //Console.WriteLine(cleanFile);
-                    string destFilePath = gameFolder + tempName + "\\" + cleanFile;
+                    string destFilePath = gameFolder + "\\" +  tempName + "\\" + cleanFile;
                     //Console.WriteLine(destFilePath);
                     //File.Create(destFilePath);
                     byte[] fileBytes = File.ReadAllBytes(file);
@@ -93,10 +96,10 @@ namespace DanganronpaAnotherModLoader
                 Console.WriteLine( "(" + mod.loadOrder + ")Patched Mod " + mod.Path.Replace(config.ConfigurationValues.modsPath + "\\", string.Empty));
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            Wad.RePackWAD(gameFolder + tempName, gameFolder);
-            Directory.Delete(gameFolder + tempName, true);
+            Wad.RePackWAD(gameFolder + "\\" + tempName, gameFolder);
+            Directory.Delete(gameFolder + "\\"+ tempName, true);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Rebuilt dr2_data_keyboard_us.wad");
+            Console.WriteLine("Rebuilt " + gameStr + "_data_keyboard_us.wad");
             Console.ForegroundColor = ConsoleColor.White;
         }
         public static List<Mod> GetMods(string modFolder)
