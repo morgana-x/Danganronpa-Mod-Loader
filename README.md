@@ -1,5 +1,5 @@
 # Danganronpa-Mod-Loader
-A mod loader for the PC ports of Danganronpa 1&amp;2
+A very basic but very simple mod loader for the PC ports of Danganronpa 1&amp;2
 
 # Usage
 The configuration files and mod folders by default regardless of where you run this program will be located in My Documents/Danganronpa2
