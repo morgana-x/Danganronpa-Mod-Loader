@@ -5,7 +5,7 @@ Currently uses WAD file related code from [DRAT](https://github.com/Liquid-S/Dan
 
 (To be changed)
 # Usage
-The configuration files and mod folders by default regardless of where you run this program will be located in 
+The configuration files and mod folders by default regardless of where you run this program and what game for, they will be located in 
 
 **My Documents/Danganronpa2**
 
