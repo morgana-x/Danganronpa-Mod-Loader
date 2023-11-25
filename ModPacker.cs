@@ -97,6 +97,8 @@ namespace DanganronpaAnotherModLoader
 
                     string cleanDir = dir.Replace(mod.Path, string.Empty);
                     string destDirPath = gameFolder + "\\" + tempName + cleanDir;
+                    destDirPath = destDirPath.Replace("\\wad", string.Empty);
+                    //Console.WriteLine(destDirPath);
                     if (!Directory.Exists(destDirPath))
                         Directory.CreateDirectory(destDirPath);
                 }
@@ -106,7 +108,8 @@ namespace DanganronpaAnotherModLoader
                     string cleanFile = file.Replace(mod.Path, string.Empty);
                     //Console.WriteLine(cleanFile);
                     string destFilePath = gameFolder + "\\" +  tempName + "\\" + cleanFile;
-                    //Console.WriteLine(destFilePath);
+                    destFilePath = destFilePath.Replace("\\wad", string.Empty);
+                    ////Console.WriteLine(destFilePath);
                     //File.Create(destFilePath);
                     byte[] fileBytes = File.ReadAllBytes(file);
                     File.WriteAllBytes(destFilePath, fileBytes);    //, destFilePath);
@@ -140,7 +143,7 @@ namespace DanganronpaAnotherModLoader
             List<Mod> modList = new List<Mod>();
             foreach (string modPath in modPaths)
             {
-                modList.Add(new Mod(modPath, true));
+                modList.Add(new Mod(modPath, true, modPath.Replace(modFolder + "\\", "")));
             }
             return modList;
         }
