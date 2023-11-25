@@ -28,6 +28,7 @@ My Documents/Danganronpa2/mods/myCoolMod/wad/Dr2/data/us/script/e01_001_100.lin
 Note: "Game", 0 = Dr1, 1 = Dr2
 
 ##metaData.json
+```json
 {
   "Name": "Dungeon Destructive - Danganronpa Badly Translated",
   "Description": "Dungeon Destructive is a mod that translates the dialogue from the first 2 chapters of the game into random languages 10 times in a row to come up with funny results.",
@@ -35,5 +36,5 @@ Note: "Game", 0 = Dr1, 1 = Dr2
   "Version": "0",
   "GameBanana": "https://gamebanana.com/mods/50041",
   "Game": 0
-}
+}```
 
