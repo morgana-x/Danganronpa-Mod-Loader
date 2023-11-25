@@ -15,24 +15,24 @@ static class Program
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("Danganronpa 2 Goodbye Despair\n");
         Game game = Game.Dr1;
-        string selectedKey = "";
-        while (selectedKey == "")
+        while (true)
         {
             ConsoleKeyInfo key = Console.ReadKey();
             string k = key.KeyChar.ToString();
             if (k == "1" || k == "2")
             {
-                selectedKey = k;
+                game = k == "1" ? Game.Dr1 : Game.Dr2;
                 break;
             }
         }
-        game = selectedKey == "1" ? Game.Dr1 : Game.Dr2;
+
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("\n\nSelected game " + game.ToString() + "\n\n\n");
         Console.ForegroundColor = ConsoleColor.White;
+
         ModPacker.PackMods(config.ConfigurationValues.gamePath[game], config.ConfigurationValues.modsPath, config, game);
+
         string exePath = config.ConfigurationValues.gamePath[game] +  "\\" + ((game==Game.Dr2) ? "DR2_us.exe" : "DR1_us.exe");
-        //Console.WriteLine("Starting " + exePath);
         if (File.Exists(exePath))
         {
             System.Diagnostics.Process.Start(exePath);
