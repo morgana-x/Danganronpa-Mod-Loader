@@ -9,14 +9,14 @@ The configuration files and mod folders by default regardless of where you run t
 
 **My Documents/Danganronpa2**
 
-There you will find (after initally running the program) a **mods** folder, and a **modConfig.json**
+There you will find (after initally running the program) a ```mods``` folder, and a ```modConfig.json```
 
 **My Documents/Danganronpa2/mods/**
 + folders named with the mods' id
 
 **Inside the mod folder**
-+ metaData.json file
-+ folder called "wad" including all files for the mod
++ ```metaData.json``` file
++ folder called ```wad``` including all files for the mod
 
 the data for the mod in /wad/ ignores specific wad files as it's all chucked in dr2_keyboard_us.wad essentially and works
 
