@@ -13,9 +13,9 @@ namespace DanganronpaAnotherModLoader
         {
             string gameStr = game == Game.Dr1 ? "dr1" : "dr2";
             string tempName = gameStr + "_data_keyboard_us";
-            Console.WriteLine(gameFolder + "\\" + tempName + ".wad");
-            Console.WriteLine(Directory.Exists(gameFolder));
-            Console.WriteLine(File.Exists(gameFolder + "\\" + tempName + ".wad"));
+            //Console.WriteLine(gameFolder + "\\" + tempName + ".wad");
+            //Console.WriteLine(Directory.Exists(gameFolder));
+            //Console.WriteLine(File.Exists(gameFolder + "\\" + tempName + ".wad"));
 
             if (!File.Exists(gameFolder + "\\" + tempName + ".wad"))
             {
@@ -27,7 +27,7 @@ namespace DanganronpaAnotherModLoader
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 string newPath = Console.ReadLine();
                 Console.WriteLine(newPath);
-                config.ConfigurationValues.gamePath = newPath;
+                config.ConfigurationValues.gamePath[game] = newPath;
                 config.saveConfigValues();
                 Console.ForegroundColor = ConsoleColor.White;
                 PackMods(newPath, modFolder, config, game);
@@ -61,10 +61,17 @@ namespace DanganronpaAnotherModLoader
                 }
                 
                 Mod mod = new Mod(modPath, false, modId);
+                if (mod.metaData.Game != game)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Skipping " + mod.metaData.Name + " as it is not a " + game.ToString() + " mod.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    continue;
+                }
                 mod.loadOrder = config.ConfigurationValues.modLoadOrder[modId];
                 while (!mod.finishedProcessing) { }
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Finished Caching " + modId + "\n");
+                Console.WriteLine("Cached " + modId);
                 Console.ForegroundColor = ConsoleColor.White;
                 modList.Add(mod);
             }
@@ -75,13 +82,13 @@ namespace DanganronpaAnotherModLoader
                 config.saveConfigValues();
             }
             string backUpWadLocation = gameFolder + "\\" + gameStr + "_data_keyboard_us_backup.wad";
-            string originalWadLocation = gameFolder + "\\" + tempName;
+            string originalWadLocation = gameFolder + "\\" + tempName + ".wad";
             if (!File.Exists(backUpWadLocation))
             {
                 Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine(gameStr + "_data_keyboard_us_backup.wad doesn't exist!\nCreating...\n");
                 Console.ForegroundColor = ConsoleColor.White;
-                File.Copy(originalWadLocation, backUpWadLocation, false);
+                File.Copy(originalWadLocation, backUpWadLocation, true);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Created a " + gameStr + "_data_keyboard_us_backup.wad!\n");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -123,7 +130,7 @@ namespace DanganronpaAnotherModLoader
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(" Patched ");
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write( mod.id);
+                Console.Write( mod.metaData.Name);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" by ");
                 Console.ForegroundColor = ConsoleColor.Cyan;

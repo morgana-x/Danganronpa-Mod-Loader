@@ -15,6 +15,8 @@ namespace DanganronpaAnotherModLoader
         public string Author { get; set; } = "Insert Author Here";
         public string Version { get; set; } = "0";
         public string GameBanana { get; set; } = "";
+
+        public Game Game { get; set; } = Game.Dr2;
     }
 
     public class Mod

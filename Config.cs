@@ -10,8 +10,15 @@ namespace DanganronpaAnotherModLoader
 {
     public class ConfigValues
     {
-        public string gamePath { get; set; } = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Danganronpa 2 Goodbye Despair";
-        public string modsPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Games\\Danganronpa2\\mods"; //Assembly.GetEntryAssembly().Location + "/mods";
+        //public string gamePath { get; set; } = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Danganronpa 2 Goodbye Despair";
+        public Dictionary<Game, string> gamePath { get; set; } = new Dictionary<Game, string>() 
+        {
+            [Game.Dr1] = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Danganronpa Trigger Happy Havoc",
+            [Game.Dr2] = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Danganronpa 2 Goodbye Despair"
+        };
+        public string modsPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Games\\Danganronpa2\\mods";
+
+ 
         public Dictionary<string, int> modLoadOrder { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, bool> modEnabled { get; set; } = new Dictionary<string, bool>();
 
@@ -26,6 +33,15 @@ namespace DanganronpaAnotherModLoader
         public ConfigValues getConfigValues()
         {
             Console.WriteLine(configPath);
+            if (!Directory.Exists(configPath.Replace("\\modConfig.json", "")))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(configPath.Replace("\\modConfig.json", "") + " doesn't exist!");
+                Directory.CreateDirectory(configPath.Replace("\\modConfig.json", ""));
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine( "Created folder " + configPath.Replace("\\modConfig.json", ""));
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             if (!File.Exists(configPath))
             {
                 ConfigurationValues = new ConfigValues();
