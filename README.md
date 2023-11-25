@@ -11,16 +11,16 @@ The configuration files and mod folders by default regardless of where you run t
 
 There you will find (after initally running the program) a **mods** folder, and a **modConfig.json**
 
-Mod format insides of My Documents/Danganronpa2/mods/
-+ folder with the mod's name/id
-Then inside the mod folder
+**My Documents/Danganronpa2/mods/**
++ folders named with the mods' id
+
+**Inside the mod folder**
 + metaData.json file
-+ wad folder including all files for the mod
++ folder called "wad" including all files for the mod
 
 the data for the mod in /wad/ ignores specific wad files as it's all chucked in dr2_keyboard_us.wad essentially and works
 
-Example of a really basic layout for a script mod:
-
+**Example of a really basic layout for a script mod:**
 My Documents/Danganronpa2/mods/myCoolMod/wad/Dr2/data/us/script/e01_001_100.lin
 
 
