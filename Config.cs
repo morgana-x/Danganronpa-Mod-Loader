@@ -21,6 +21,8 @@ namespace DanganronpaAnotherModLoader
     {
         public ConfigValues ConfigurationValues { get; set; }
         public string configPath { get; private set; } = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Games\\Danganronpa2\\modConfig.json";
+
+        FileStream jsonFileStream { get; set; } = null;
         public ConfigValues getConfigValues()
         {
             Console.WriteLine(configPath);
@@ -30,18 +32,45 @@ namespace DanganronpaAnotherModLoader
                 saveConfigValues();
                 return ConfigurationValues;
             }
-            FileStream jsonFileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            ConfigurationValues = JsonSerializer.Deserialize<ConfigValues>(jsonFileStream);
-            jsonFileStream.Dispose();
-            jsonFileStream.Close();
+            if (jsonFileStream == null)
+            {
+                jsonFileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            }
+            try
+            {
+                ConfigurationValues = JsonSerializer.Deserialize<ConfigValues>(jsonFileStream);
+                jsonFileStream.Dispose();
+                jsonFileStream.Close();
+                jsonFileStream = null;
+            }
+            catch(Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Error: {e}");
+                Console.ForegroundColor = ConsoleColor.White;
+                ConfigurationValues = new ConfigValues();
+                saveConfigValues();
+                return ConfigurationValues;
+            }
+            //jsonFileStream.Dispose();
+            //jsonFileStream.Close();
             return ConfigurationValues;
         }
         public void saveConfigValues()
         {
-            FileStream jsonFileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            JsonSerializer.Serialize<ConfigValues>(jsonFileStream, ConfigurationValues);
+
+            if (jsonFileStream == null)
+            {
+                jsonFileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            }
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.WriteIndented = true;
+            JsonSerializer.Serialize<ConfigValues>(jsonFileStream, ConfigurationValues, options);
             jsonFileStream.Dispose();
             jsonFileStream.Close();
+            jsonFileStream = null;
+            //jsonFileStream.Dispose();
+            //jsonFileStream.Close();
         }
         public Config()
         {

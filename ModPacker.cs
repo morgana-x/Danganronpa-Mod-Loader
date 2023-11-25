@@ -11,9 +11,28 @@ namespace DanganronpaAnotherModLoader
  
         public static void PackMods(string gameFolder, string modFolder, Config config, Game game = Game.Dr2 )
         {
-         
             string gameStr = game == Game.Dr1 ? "dr1" : "dr2";
             string tempName = gameStr + "_data_keyboard_us";
+            Console.WriteLine(gameFolder + "\\" + tempName + ".wad");
+            Console.WriteLine(Directory.Exists(gameFolder));
+            Console.WriteLine(File.Exists(gameFolder + "\\" + tempName + ".wad"));
+
+            if (!File.Exists(gameFolder + "\\" + tempName + ".wad"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid path to the game folder!");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Please provide a valid path containing the .wad files for Danganronpa 2");
+                Console.WriteLine("Paste the path below or close the program:\n");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                string newPath = Console.ReadLine();
+                Console.WriteLine(newPath);
+                config.ConfigurationValues.gamePath = newPath;
+                config.saveConfigValues();
+                Console.ForegroundColor = ConsoleColor.White;
+                PackMods(newPath, modFolder, config, game);
+            }
+ 
             if (!Directory.Exists(modFolder))
             {
                 Directory.CreateDirectory(modFolder);
@@ -41,7 +60,7 @@ namespace DanganronpaAnotherModLoader
                     }
                 }
                 
-                Mod mod = new Mod(modPath);
+                Mod mod = new Mod(modPath, false, modId);
                 mod.loadOrder = config.ConfigurationValues.modLoadOrder[modId];
                 while (!mod.finishedProcessing) { }
                 Console.ForegroundColor = ConsoleColor.Yellow;
