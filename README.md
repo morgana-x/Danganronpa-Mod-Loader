@@ -39,4 +39,27 @@ Note:
   "GameBanana": "https://gamebanana.com/mods/50041",
   "Game": 0
 }
+```
 
+# Example modConfig.json
+```json
+{
+  "gamePath": {
+    "Dr1": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Danganronpa Trigger Happy Havoc",
+    "Dr2": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Danganronpa 2 Goodbye Despair"
+  },
+  "modsPath": "C:\\Users\\USERNAMEHERE\\Documents\\My Games\\Danganronpa2\\mods",
+  "modLoadOrder": {
+    "badlytranslated": 1,
+    "dr1.dungeondestructive": 2,
+    "ilovenagito": 3,
+    "testmod": 4
+  },
+  "modEnabled": {
+    "badlytranslated": true,
+    "dr1.dungeondestructive": true,
+    "ilovenagito": true,
+    "testmod": true
+  }
+}
+```
