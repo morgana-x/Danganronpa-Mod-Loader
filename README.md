@@ -36,5 +36,5 @@ Note: "Game", 0 = Dr1, 1 = Dr2
   "Version": "0",
   "GameBanana": "https://gamebanana.com/mods/50041",
   "Game": 0
-}```
+}
 
