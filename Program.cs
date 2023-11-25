@@ -6,7 +6,11 @@ static class Program
     {
         Config config = new Config();
         ModPacker.PackMods(config.ConfigurationValues.gamePath, config.ConfigurationValues.modsPath, config);
-        System.Diagnostics.Process.Start(config.ConfigurationValues.gamePath + "\\DR2_us.exe");
+        string exePath = config.ConfigurationValues.gamePath + "\\DR2_us.exe";
+        if (File.Exists(exePath))
+        {
+            System.Diagnostics.Process.Start(exePath);
+        }
     }
 }
 

@@ -26,7 +26,7 @@ namespace DanganronpaAnotherModLoader
         public bool finishedProcessing = false;
         public int loadOrder = 0;
 
-        string id;
+        public string id;
 
         public ModMetaData metaData;
         public void spiralIntoDespair(string directory)

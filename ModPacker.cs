@@ -111,8 +111,21 @@ namespace DanganronpaAnotherModLoader
                     byte[] fileBytes = File.ReadAllBytes(file);
                     File.WriteAllBytes(destFilePath, fileBytes);    //, destFilePath);
                 }
-                Console.ForegroundColor = ConsoleColor.Cyan; 
-                Console.WriteLine( "(" + mod.loadOrder + ")Patched Mod " + mod.Path.Replace(config.ConfigurationValues.modsPath + "\\", string.Empty));
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("(");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(mod.loadOrder);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(")");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(" Patched ");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.Write( mod.id);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" by ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(mod.metaData.Author);
+                Console.Write("\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             Wad.RePackWAD(gameFolder + "\\" + tempName, gameFolder);
