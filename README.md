@@ -21,7 +21,7 @@ There you will find (after initally running the program) a **mods** folder, and 
 the data for the mod in /wad/ ignores specific wad files as it's all chucked in dr2_keyboard_us.wad essentially and works
 
 **Example of a really basic layout for a script mod:**
-My Documents/Danganronpa2/mods/myCoolMod/wad/Dr2/data/us/script/e01_001_100.lin
+```My Documents/Danganronpa2/mods/myCoolMod/wad/Dr2/data/us/script/e01_001_100.lin```
 
 
 # Example metadata.json
