@@ -25,9 +25,10 @@ My Documents/Danganronpa2/mods/myCoolMod/wad/Dr2/data/us/script/e01_001_100.lin
 
 
 # Example metadata.json
-Note: "Game", 0 = Dr1, 1 = Dr2
+Note: 
 
-##metaData.json
+"Game": 0 = Dr1, 1 = Dr2
+
 ```json
 {
   "Name": "Dungeon Destructive - Danganronpa Badly Translated",
