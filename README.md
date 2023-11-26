@@ -1,5 +1,5 @@
 # Danganronpa-Mod-Loader
-A very basic but very "effective" mod loader for the PC ports of Danganronpa 1 and 2
+A very basic mod loader for the PC ports of Danganronpa 1 and 2
 
 Currently uses WAD file related code from [DRAT](https://github.com/Liquid-S/Danganronpa-Another-Tool)
 
