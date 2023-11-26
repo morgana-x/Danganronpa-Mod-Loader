@@ -26,7 +26,9 @@ the data for the mod in /wad/ ignores specific wad files as it's all chucked in 
 
 # Example/Test mod
 Says "MODDING SUCCESS LOL" at start of chapter 1 after the rules are shown 
-[examplemod.zip](https://github.com/morgana-x/Danganronpa-Mod-Loader/files/13465654/examplemod.zip)
+
+[examplemod.zip](https://github.com/morgana-x/Danganronpa-Mod-Loader/files/13465657/examplemod.zip)
+
 
 # Example metadata.json
 Note: 
