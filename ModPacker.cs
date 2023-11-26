@@ -13,9 +13,6 @@ namespace DanganronpaAnotherModLoader
         {
             string gameStr = game == Game.Dr1 ? "dr1" : "dr2";
             string tempName = gameStr + "_data_keyboard_us";
-            //Console.WriteLine(gameFolder + "\\" + tempName + ".wad");
-            //Console.WriteLine(Directory.Exists(gameFolder));
-            //Console.WriteLine(File.Exists(gameFolder + "\\" + tempName + ".wad"));
 
             if (!File.Exists(gameFolder + "\\" + tempName + ".wad"))
             {
@@ -140,6 +137,8 @@ namespace DanganronpaAnotherModLoader
                 Console.ForegroundColor = ConsoleColor.White;
             }
             Console.WriteLine("\n\n");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Building " + gameStr + "_data_keyboard_us.wad...\nPlease wait...");
             Wad.RePackWAD(gameFolder + "\\" + tempName, gameFolder);
             Directory.Delete(gameFolder + "\\"+ tempName, true);
             Console.ForegroundColor = ConsoleColor.Green;

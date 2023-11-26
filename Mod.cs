@@ -31,8 +31,10 @@ namespace DanganronpaAnotherModLoader
         public string id;
 
         public ModMetaData metaData;
-        public void spiralIntoDespair(string directory)
+        private Dictionary<int, bool> branches= new Dictionary<int, bool>();
+        public void spiralIntoDespair(string directory, int branchId)
         {
+            //Console.WriteLine(directory);
             Directories.Add(directory);
 
             string[] files = Directory.GetFiles(directory);
@@ -44,16 +46,24 @@ namespace DanganronpaAnotherModLoader
   
             string[] directories = Directory.GetDirectories(directory);
 
-            if (directories.Length == 0)
-            {
-                finishedProcessing= true;
-                return;
-            }
-
             foreach (string dir in directories)
             {
-                spiralIntoDespair(dir);
+                int did = branches.Count;
+                branches.Add(did, false);
+                spiralIntoDespair(dir, did);
+
             }
+
+            branches[branchId] = true;
+    
+            foreach(var a in branches)
+            {
+                if (!a.Value)
+                {
+                    return;
+                }
+            }
+            finishedProcessing= true;
 
         }
         public void readModJson()
@@ -96,7 +106,8 @@ namespace DanganronpaAnotherModLoader
         public void FileSearch()
         {
             FilePaths.Clear();
-            spiralIntoDespair(Path + "\\wad");
+            branches.Clear();
+            spiralIntoDespair(Path + "\\wad", 0);
         }
     }
 }
