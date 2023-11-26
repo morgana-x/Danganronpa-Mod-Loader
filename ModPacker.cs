@@ -63,7 +63,7 @@ namespace DanganronpaAnotherModLoader
                 Mod mod = new Mod(modPath, false, modId);
                 if (mod.metaData.Game != game)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.Gray;
                     Console.WriteLine("Skipping " + mod.metaData.Name + " as it is not a " + game.ToString() + " mod.");
                     Console.ForegroundColor = ConsoleColor.White;
                     continue;
@@ -95,6 +95,7 @@ namespace DanganronpaAnotherModLoader
             }
             Wad.ExtractWAD(backUpWadLocation, gameFolder + "\\"+ tempName);
             //Console.WriteLine(modList.Count);
+            Console.WriteLine("\n\n");
             foreach (Mod mod in modList)
             {
                 //Console.WriteLine("FILE TIME!");
@@ -138,6 +139,7 @@ namespace DanganronpaAnotherModLoader
                 Console.Write("\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
+            Console.WriteLine("\n\n");
             Wad.RePackWAD(gameFolder + "\\" + tempName, gameFolder);
             Directory.Delete(gameFolder + "\\"+ tempName, true);
             Console.ForegroundColor = ConsoleColor.Green;

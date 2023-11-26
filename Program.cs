@@ -4,7 +4,9 @@ static class Program
 {
     static void Main(string[] args)
     {
+        Console.Title = "Danganronpa Mod Loader";
         Config config = new Config();
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Select game");
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write(" 1 ");
@@ -27,16 +29,21 @@ static class Program
         }
 
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("\n\nSelected game " + game.ToString() + "\n\n\n");
+        Console.WriteLine("Selected game " + game.ToString() + "\n\n\n");
         Console.ForegroundColor = ConsoleColor.White;
 
         ModPacker.PackMods(config.ConfigurationValues.gamePath[game], config.ConfigurationValues.modsPath, config, game);
-
         string exePath = config.ConfigurationValues.gamePath[game] +  "\\" + ((game==Game.Dr2) ? "DR2_us.exe" : "DR1_us.exe");
         if (File.Exists(exePath))
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Starting " + (((game == Game.Dr2) ? "DR2_us.exe" : "DR1_us.exe")));
             System.Diagnostics.Process.Start(exePath);
         }
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("\n");
+        Console.WriteLine("Press any button to close the program");
+        Console.ReadLine();
     }
 }
 
