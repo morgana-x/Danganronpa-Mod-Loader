@@ -35,6 +35,8 @@ Note:
 
 "Game": 0 = Dr1, 1 = Dr2
 
+Gamebanna link does not do anything currently
+
 ```json
 {
   "Name": "Dungeon Destructive - Danganronpa Badly Translated",
