@@ -3,7 +3,11 @@ A very basic mod loader for the PC ports of Danganronpa 1 and 2
 
 Currently uses WAD file related code from [DRAT](https://github.com/Liquid-S/Danganronpa-Another-Tool)
 
-(To be changed)
+Basically place your mods in the mod folder using the file structure described below, run the program, select game and it will automatically create a backup of dr1/2_keyboard_us.wad and patch a copy of it with the mods
+
+After initally loading the mods and closing the game etc, you can edit modConfig.json to change whether they are enabled and their load order
+
+
 # Usage
 The configuration files and mod folders by default regardless of where you run this program and what game for, they will be located in 
 
