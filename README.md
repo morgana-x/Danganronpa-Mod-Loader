@@ -1,4 +1,4 @@
-# Danganronpa-Mod-Loader
+# Danganronpa-Mod-Loader  ![Downloads](https://img.shields.io/github/downloads/morgana-x/Danganronpa-Mod-Loader/total)
 A very basic mod loader for the PC ports of Danganronpa 1 and 2
 
 Currently uses WAD file related code from [DRAT](https://github.com/Liquid-S/Danganronpa-Another-Tool)
