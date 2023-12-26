@@ -32,7 +32,7 @@ namespace DanganronpaAnotherModLoader
         FileStream jsonFileStream { get; set; } = null;
         public ConfigValues getConfigValues()
         {
-            Console.WriteLine(configPath);
+            //Console.WriteLine(configPath);
             if (!Directory.Exists(configPath.Replace("\\modConfig.json", "")))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -66,6 +66,7 @@ namespace DanganronpaAnotherModLoader
                 Console.ForegroundColor = ConsoleColor.White;
                 ConfigurationValues = new ConfigValues();
                 saveConfigValues();
+                Console.WriteLine("Saving a new config!");
                 return ConfigurationValues;
             }
             //jsonFileStream.Dispose();
@@ -74,7 +75,7 @@ namespace DanganronpaAnotherModLoader
         }
         public void saveConfigValues()
         {
-
+            File.WriteAllText(configPath, ""); // Empty file incase it is broken!
             if (jsonFileStream == null)
             {
                 jsonFileStream = new FileStream(configPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);

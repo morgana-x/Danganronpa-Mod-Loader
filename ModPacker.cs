@@ -19,7 +19,7 @@ namespace DanganronpaAnotherModLoader
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid path to the game folder!");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Please provide a valid path containing the .wad files for Danganronpa 2");
+                Console.WriteLine("Please provide a valid path containing the .wad files for Danganronpa " + ((game == Game.Dr1) ? "1" : "2"));
                 Console.WriteLine("Paste the path below or close the program:\n");
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 string newPath = Console.ReadLine();
@@ -29,58 +29,15 @@ namespace DanganronpaAnotherModLoader
                 Console.ForegroundColor = ConsoleColor.White;
                 PackMods(newPath, modFolder, config, game);
             }
- 
-            if (!Directory.Exists(modFolder))
-            {
-                Directory.CreateDirectory(modFolder);
-            }
-            string[] modPaths = Directory.GetDirectories(modFolder);
-            List<Mod> modList = new List<Mod>();
-            bool configChanged = false;
-            foreach (string modPath in modPaths)
-            {
-           
 
-                //Console.WriteLine("Caching " + mod.Path.Replace(modFolder, ""));
-                string modId = modPath.Replace(modFolder + "\\", "");
-                if (!config.ConfigurationValues.modLoadOrder.ContainsKey(modId))
-                {
-                    config.ConfigurationValues.modLoadOrder.Add(modId, config.ConfigurationValues.modLoadOrder.Count + 1);
-                    config.ConfigurationValues.modEnabled.Add(modId, true);
-                    configChanged = true;
-                }
-                else
-                {
-                    if (!config.ConfigurationValues.modEnabled[modId])
-                    {
-                        continue;
-                    }
-                }
-                
-                Mod mod = new Mod(modPath, false, modId);
-                if (mod.metaData.Game != game)
-                {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine("Skipping " + mod.metaData.Name + " as it is not a " + game.ToString() + " mod.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    continue;
-                }
-                mod.loadOrder = config.ConfigurationValues.modLoadOrder[modId];
-                while (!mod.finishedProcessing) { }
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Cached " + modId);
-                Console.ForegroundColor = ConsoleColor.White;
-                modList.Add(mod);
-            }
 
-            modList = modList.OrderBy(m => m.loadOrder).ToList();
-            if (configChanged)
-            {
-                config.saveConfigValues();
-            }
+            List<Mod> modList = Mod.GetMods(modFolder,config, game);
+
+
             string backUpWadLocation = gameFolder + "\\" + gameStr + "_data_keyboard_us_backup.wad";
             string originalWadLocation = gameFolder + "\\" + tempName + ".wad";
-            if (!File.Exists(backUpWadLocation))
+
+            if (!File.Exists(backUpWadLocation)) // Create the backup wad file if it doesn't exist (a clean data_keyboard_us.wad without any mods that is used each time mods are loaded)
             {
                 Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine(gameStr + "_data_keyboard_us_backup.wad doesn't exist!\nCreating...\n");
@@ -90,32 +47,25 @@ namespace DanganronpaAnotherModLoader
                 Console.WriteLine("Created a " + gameStr + "_data_keyboard_us_backup.wad!\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            Wad.ExtractWAD(backUpWadLocation, gameFolder + "\\"+ tempName);
+            Wad.ExtractWAD(backUpWadLocation, gameFolder + "\\"+ tempName); // Extract the clean backup wad file into a temporary folder
             //Console.WriteLine(modList.Count);
             Console.WriteLine("\n\n");
             foreach (Mod mod in modList)
             {
-                //Console.WriteLine("FILE TIME!");
-                //Console.WriteLine(mod.FilePaths.Count);
-                foreach (string dir in mod.Directories)
+                foreach (string dir in mod.Directories) // Copy Directiories into temporary folder that will be repacked into a wad file
                 {
 
                     string cleanDir = dir.Replace(mod.Path, string.Empty);
                     string destDirPath = gameFolder + "\\" + tempName + cleanDir;
                     destDirPath = destDirPath.Replace("\\wad", string.Empty);
-                    //Console.WriteLine(destDirPath);
                     if (!Directory.Exists(destDirPath))
                         Directory.CreateDirectory(destDirPath);
                 }
-                foreach (string file in mod.FilePaths)
+                foreach (string file in mod.FilePaths) // Copy the files into a temporary folder that will be repacked into a wad file
                 {
-                    //Console.WriteLine(file);
                     string cleanFile = file.Replace(mod.Path, string.Empty);
-                    //Console.WriteLine(cleanFile);
                     string destFilePath = gameFolder + "\\" +  tempName + "\\" + cleanFile;
                     destFilePath = destFilePath.Replace("\\wad", string.Empty);
-                    ////Console.WriteLine(destFilePath);
-                    //File.Create(destFilePath);
                     byte[] fileBytes = File.ReadAllBytes(file);
                     File.WriteAllBytes(destFilePath, fileBytes);    //, destFilePath);
                 }
@@ -145,7 +95,7 @@ namespace DanganronpaAnotherModLoader
             Console.WriteLine("Rebuilt " + gameStr + "_data_keyboard_us.wad");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public static List<Mod> GetMods(string modFolder)
+        /*public static List<Mod> GetMods(string modFolder)
         {
             string[] modPaths = Directory.GetDirectories(modFolder);
             List<Mod> modList = new List<Mod>();
@@ -154,6 +104,6 @@ namespace DanganronpaAnotherModLoader
                 modList.Add(new Mod(modPath, true, modPath.Replace(modFolder + "\\", "")));
             }
             return modList;
-        }
+        }*/
     }
 }
