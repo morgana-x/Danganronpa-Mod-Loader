@@ -1,3 +1,12 @@
+# Notice
+I'm working on a reloaded II mod that emulates Danganronpa WAD Files, at https://github.com/morgana-x/Wad-File-Emulator-ReloadedII
+
+This reloadedII mod allows other mods to replace files within the wads, at runtime without touching the actual archives
+
+This allows pretty much instantaneous loading of mods, and no messing around with physcial files,
+
+I'd probably reccomend using that over this garbage once I've finished it up
+
 # Danganronpa-Mod-Loader  ![Downloads](https://img.shields.io/github/downloads/morgana-x/Danganronpa-Mod-Loader/total)
 A very basic mod loader for the PC ports of Danganronpa 1 and 2
 
